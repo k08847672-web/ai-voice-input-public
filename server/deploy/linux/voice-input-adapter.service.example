@@ -1,0 +1,16 @@
+[Unit]
+Description=AI Voice Input ASR protocol adapter
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/.local/share/ai-voice-input/current
+EnvironmentFile=%h/.local/share/ai-voice-input/adapter.env
+ExecStart=%h/.local/share/ai-voice-input/current/.venv/bin/uvicorn voice_input_server.app:app --app-dir %h/.local/share/ai-voice-input/current/src --host 100.100.97.120 --port 19001 --no-access-log
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+UMask=0077
+
+[Install]
+WantedBy=default.target

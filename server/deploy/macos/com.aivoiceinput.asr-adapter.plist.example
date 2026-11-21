@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.aivoiceinput.asr-adapter</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__INSTALL_ROOT__/current/deploy/macos/run.sh</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>VOICE_INPUT_INSTALL_ROOT</key>
+    <string>__INSTALL_ROOT__</string>
+    <key>VOICE_INPUT_LISTEN_HOST</key>
+    <string>__LISTEN_HOST__</string>
+    <key>VOICE_INPUT_LISTEN_PORT</key>
+    <string>19001</string>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <dict>
+    <key>SuccessfulExit</key>
+    <false/>
+  </dict>
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>StandardOutPath</key>
+  <string>__INSTALL_ROOT__/logs/adapter.log</string>
+  <key>StandardErrorPath</key>
+  <string>__INSTALL_ROOT__/logs/adapter.error.log</string>
+</dict>
+</plist>

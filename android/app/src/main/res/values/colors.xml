@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="voice_primary">#3157D5</color>
+    <color name="voice_primary_dark">#203B99</color>
+    <color name="voice_surface">#F5F7FB</color>
+</resources>

@@ -1,0 +1,51 @@
+{
+  "session_id": "c56a4180-65aa-42ec-a945-5fd21dec0538",
+  "client": {
+    "start": {
+      "type": "start",
+      "session_id": "c56a4180-65aa-42ec-a945-5fd21dec0538",
+      "protocol_version": 1,
+      "config": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "encoding": "pcm_s16le",
+        "language": "zh-CN",
+        "mode": "smart",
+        "hotwords": [
+          "Codex"
+        ],
+        "dictionary": {
+          "扣得克斯": "Codex"
+        },
+        "style": "简洁",
+        "source_application": "com.apple.TextEdit"
+      }
+    },
+    "stop": {
+      "type": "stop",
+      "session_id": "c56a4180-65aa-42ec-a945-5fd21dec0538"
+    }
+  },
+  "server": [
+    {
+      "type": "ready",
+      "session_id": "c56a4180-65aa-42ec-a945-5fd21dec0538"
+    },
+    {
+      "type": "partial",
+      "session_id": "c56a4180-65aa-42ec-a945-5fd21dec0538",
+      "text": "今天下午"
+    },
+    {
+      "type": "final",
+      "session_id": "c56a4180-65aa-42ec-a945-5fd21dec0538",
+      "text": "今天下午三点开会。"
+    },
+    {
+      "type": "error",
+      "session_id": "c56a4180-65aa-42ec-a945-5fd21dec0538",
+      "code": "overloaded",
+      "message": "服务繁忙"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+name: VoiceInput
+options:
+  bundleIdPrefix: com.aivoiceinput
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "16.0"
+  createIntermediateGroups: true
+configs:
+  Debug: debug
+  Release: release
+settings:
+  base:
+    SWIFT_VERSION: "5.10"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    ENABLE_HARDENED_RUNTIME: YES
+    CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
+    SWIFT_STRICT_CONCURRENCY: complete
+    DEAD_CODE_STRIPPING: YES
+    MARKETING_VERSION: 1.0.0
+    CURRENT_PROJECT_VERSION: 1
+targets:
+  VoiceInputCore:
+    type: framework
+    platform: macOS
+    sources:
+      - Sources/VoiceInputCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.aivoiceinput.core
+        GENERATE_INFOPLIST_FILE: YES
+        SKIP_INSTALL: YES
+  VoiceInput:
+    type: application
+    platform: macOS
+    sources:
+      - Sources/VoiceInputApp
+    resources:
+      - Resources/Assets.xcassets
+    dependencies:
+      - target: VoiceInputCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.aivoiceinput.mac
+        PRODUCT_NAME: VoiceInput
+        INFOPLIST_FILE: Resources/Info.plist
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_ENTITLEMENTS: Resources/VoiceInput.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_APP_SANDBOX: NO
+    postBuildScripts:
+      - name: Reject accidental secrets
+        script: |
+          if /usr/bin/grep -R -E 'Bearer [A-Za-z0-9_-]{20,}' "${SRCROOT}/Sources"; then
+            echo "error: possible bearer token committed in source"
+            exit 1
+          fi
+        basedOnDependencyAnalysis: false
+  VoiceInputCoreTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - Tests/VoiceInputCoreTests
+    dependencies:
+      - target: VoiceInputCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.aivoiceinput.core-tests
+        GENERATE_INFOPLIST_FILE: YES
+  VoiceInputAppTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - Tests/VoiceInputAppTests
+    dependencies:
+      - target: VoiceInput
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.aivoiceinput.app-tests
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  VoiceInput:
+    build:
+      targets:
+        VoiceInput: all
+        VoiceInputCoreTests: [test]
+    test:
+      targets:
+        - VoiceInputCoreTests
+        - VoiceInputAppTests
+    archive:
+      config: Release
